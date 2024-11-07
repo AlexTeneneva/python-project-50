@@ -3,8 +3,8 @@
 from gendiff.cli import invitation
 
 def main():
-    first_file, second_file, format = print_invitation()
-    print(gendiff(file1, file2, format))
+    first_file, second_file, format = invitation()
+    print(gendiff(first_file, second_file, format))
 
 
 if __name__ == '__main__':
