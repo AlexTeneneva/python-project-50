@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+#from gendiff.generate_diff import generate_diff as gendiff
 from gendiff.cli import invitation
 
 def main():
