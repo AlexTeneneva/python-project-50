@@ -8,4 +8,4 @@ def invitation():
     parser.add_argument('second_file')
     parser.add_argument('-f', '--format')
     args = parser.parse_args()
-    return args.first_file, args.second_file, args.help
+    return args.first_file, args.second_file, args.format
