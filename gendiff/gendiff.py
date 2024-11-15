@@ -13,5 +13,5 @@ def generate_diff(file1, file2, format):
 		elif not file1.get(key):
 			result.append(f"+ {key} : {file2.get(key)}")
 		else:
-			result.append(f"- {key} : {file1.get(key)}\n+ {key} : {file2.get(key)}")
-	return result
+			result.append(f"- {key} : {file1.get(key)} \n + {key} : {file2.get(key)}")
+	return '\n'.join(result)
