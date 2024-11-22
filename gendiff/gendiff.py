@@ -1,6 +1,6 @@
 from gendiff.data import get_data
 
-def generate_diff(file1, file2, format):
+def generate_diff(file1, file2, format_name='stylish'):
 	file1 = get_data(file1)
 	file2 = get_data(file2)
 	keys = set(file1.keys() | file2.keys())
