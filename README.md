@@ -7,3 +7,6 @@
 
 Сравнение плоских json файлов 
 [![asciicast](https://asciinema.org/a/aXxamC44vZvc92WCyn0ViiEsH.svg)](https://asciinema.org/a/aXxamC44vZvc92WCyn0ViiEsH)
+
+Сравнение плоских yaml файлов 
+[![asciicast](https://asciinema.org/a/1Q5OGjgol0tm5Vwm2FVwt3Q51.svg)](https://asciinema.org/a/1Q5OGjgol0tm5Vwm2FVwt3Q51)
