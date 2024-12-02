@@ -16,3 +16,7 @@ def generate_diff(file1, file2, format_name='stylish'):
         else:
             result.append(f"- {key} : {file1.get(key)}\n+ {key} : {file2.get(key)}")
     return '\n'.join(result)
+
+#модуль в котором прописываем добавление type. В нем же формируем построениие дерева - т.е. условия присваивания type
+#пишем форматтер stylish
+#добавляем в generate_diff formatter
