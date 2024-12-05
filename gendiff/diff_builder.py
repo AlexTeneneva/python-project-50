@@ -10,7 +10,7 @@ def create_diff(file1, file2):
         elif isinstance(file1[key], dict) and isinstance(file2[key], dict):
             result[key] = {
                 "type": 'nested',
-                "value": create_diff_tree(file1[key], file2[key]),
+                "value": create_diff(file1[key], file2[key]),
             }
         elif file1[key] != file2[key]:
             result[key] = {

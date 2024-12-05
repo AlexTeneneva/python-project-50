@@ -2,7 +2,6 @@
 
 def stylish(diff: dict):
     types = diff.get('type')
-    keys = sorted(diff.keys())
     result = {}
     indent_4 = '    '
     for key, value in diff.items():
