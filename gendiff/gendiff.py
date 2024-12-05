@@ -1,4 +1,5 @@
 from gendiff.data import get_data
+from gendiff.formatters.stylish import stylish
 
 
 def generate_diff(file1, file2, format_name='stylish'):
@@ -15,7 +16,7 @@ def generate_diff(file1, file2, format_name='stylish'):
             result.append(f"+ {key} : {file2.get(key)}")
         else:
             result.append(f"- {key} : {file1.get(key)}\n+ {key} : {file2.get(key)}")
-    return '\n'.join(result)
+    return stylish(result)
 
 #модуль в котором прописываем добавление type. В нем же формируем построениие дерева - т.е. условия присваивания type
 #пишем форматтер stylish
