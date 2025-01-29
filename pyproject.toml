@@ -1,27 +1,11 @@
-[tool.poetry]
-name = "hexlet-code"
+[project]
+name = "python-project-50"
 version = "0.1.0"
-description = "This program finds the difference between files"
-authors = ["Alexandra <a.teneneva@gmail.com>"]
+description = "Add your description here"
 readme = "README.md"
-packages = [
-  { include = "gendiff" },
-]
+requires-python = ">=3.13"
+dependencies = []
 
-[tool.poetry.scripts]
-gendiff = "gendiff.scripts.gendiff:main"
-
-[tool.poetry.dependencies]
-python = "^3.10"
-pytest-cov = "^5.0.0"
-pyyaml = "^6.0"
-
-[too.poetry.group.dev.dependencies]
-flake8 = "^7.0.0"
-pytest = "^8.2.0"
-pytest-cov = "^5.0.0"
-
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[project.scripts]
+gendiff = "gendiff.scripts.gen_diff:main"
+hello = "example:hello"
