@@ -1,8 +1,8 @@
 install:
-	poetry install
+	uv sync
 
 gendiff:
-	poetry run gendiff
+	uv run gendiff
 
 test:
 	poetry run pytest
@@ -14,12 +14,12 @@ lint:
 	poetry run flake8 gendiff
 
 selfcheck:
-	poetry check
+	uv check
 
 check: selfcheck test lint
 
 build:
-	poetry build
+	uv build
 
 publish:
 	poetry publish --dry-run

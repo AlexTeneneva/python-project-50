@@ -4,8 +4,12 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "pyyaml>=6.0.2",
+]
 
 [project.scripts]
 gendiff = "gendiff.scripts.gen_diff:main"
-hello = "example:hello"
+
+[tool.uv]
+package = true
