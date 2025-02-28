@@ -5,10 +5,10 @@ gendiff:
 	uv run gendiff
 
 test:
-	poetry run pytest
+	uv run pytest
 
 test-coverage:
-	poetry run pytest --cov=hexlet_python_package --cov-report xml
+	uv run pytest --cov=hexlet_python_package --cov-report xml
 
 lint:
 	poetry run flake8 gendiff
