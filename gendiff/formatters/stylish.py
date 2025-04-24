@@ -1,32 +1,49 @@
-def get_all_types(diff, target_key):
-    types = []
-    for key, value in diff.items():
-        if key == target_key:
-            types.append(value)
-        if isinstance(value, dict):
-            types.extend(get_all_types(value, target_key))
-    return types
+def make_depth(depth):
+    return f" {depth * 4}"
 
+def make_symbol(symbol=" "):
+    return f" {symbol} "
 
-
-def stylish(diff: dict):
-    types = get_all_types(diff, 'type')
+def stylish(diff, depth=0):
+    indent = make_depth(depth)
     result = []
-    indent_4 = '    '
-    for key, value in diff.items():
-        for type_value in types:
-            match type_value:
-                case 'added':
-                    result.append(f"{indent_4}  + {key}: {value['value']}")
-                case 'deleted':
-                    result.append(f"{indent_4}  - {key}: {value['value']}")
-                case 'nasted':
-                    result.append(f"{indent_4}{key}: {stylish(value['value'])}")
-                case 'changed':
-                    old_value = value.get('old_value', 'No old value')
-                    new_value = value.get('new_value', 'No new value')
-                    result.append(f"{indent_4}  - {key}: {value['old_value']}")
-                    result.append(f"{indent_4}  + {key}: {value['new_value']}")
-                case 'unchanged':
-                    result.append(f"{indent_4}  {key}: {value['value']} ")
-    return '\n'.join(result)
+    children = diff.get('children')
+    for item in children:
+        name = item.get('name')
+        type = item.get('type')
+        value = item.get('value')
+        to_format = to_format(value, depth+1)
+        old = to_format(item.get("old_value"), depth+1)
+        new = to_format(item.get("new_value"), depth+1)
+        if type == 'added':
+            result.append(f"{indent}{make_symbol("+")} {name}: {to_format}")
+        if type == "deleted":
+            result.append(f"{indent}{make_symbol("-")} {name}: {to_format}")
+        if type == "nested":
+            _symbol = make_symbol()
+            result.append(f"{indent}{_symbol} {name}: {stylish(item, depth+1)}")
+        if type == "changed":
+            result.append(f"{indent}{make_symbol("-")} {name}: {old}")
+            result.append(f"{indent}{make_symbol("+")} {name}: {new}")
+        if type == 'unchanged':
+            result.append(f"{indent}{make_symbol()} {name}: {to_format}")
+    tree = "\n".join(result)
+    return f"{{\n{tree}\n{indent}}}"
+
+def to_format (value, depth):
+    indent = make_depth(depth)
+    result = []
+    if value is None:
+        return 'null'
+    if isinstance (value, int):
+        return value
+    if isinstance(value, bool):
+        return str(value).lower()
+    if isinstance(value, dict):
+        for key, row in value.items():
+            result.append(
+                f"{indent}{make_symbol()}{key}: {to_format(row, depth + 1)}"
+            )
+        format = '\n'.join(result)
+        return f"{{\n{format}{indent}}}"
+    return f"{value}"

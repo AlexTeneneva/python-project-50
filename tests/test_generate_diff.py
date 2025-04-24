@@ -1,5 +1,5 @@
 import pytest
-from gendiff import generate_diff
+from gendiff.scripts.gen_diff import main
 
 @pytest.mark.parametrize("file1, file2, format, result", [
 							("tests/fixtures/file1.json",
@@ -12,7 +12,7 @@ from gendiff import generate_diff
 							'tests/fixtures/result_yml'),
 							('tests/fixtures/file1_nested.json',
 							'tests/fixtures/file2_nested.json',
-							'json'
+							'json',
 							'tests/fixtures/result_stylish')])
 def test_generate_diff(file1, file2, format, result):
 	with open(result) as file:

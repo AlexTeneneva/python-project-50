@@ -1,23 +1,65 @@
+def deleted (key, value):
+    return {
+        'name' : key,
+        'type' : 'deleted',
+        'value' : value
+    }
+
+def added (key, value):
+    return {
+        'name': key,
+        'type': 'added',
+        'value': value
+    }
+
+def changed (key, value1, value2):
+    return {
+        'name' : key,
+        'type' : 'changed',
+        'old_value' : value1,
+        'new_value' : value2
+    }
+
+def nested (key, value1, value2):
+    return {
+        'name': key,
+        'type': 'nested',
+        'value': create_diff(value1, value2)
+    }
+
+def unchanged (key, value):
+    return {
+        'name': key,
+        'type': 'unchanged',
+        'value': value
+    }
+
 def create_diff(file1, file2):
     keys = sorted(file1.keys() | file2.keys())
-    result = {}
-    for key in keys:
-        if key not in file2:
-            result[key] = {'type': 'deleted', 'value': file1[key]}
-        elif key not in file1:
-            result[key] = {'type': "added", 'value': file2[key]}
+    result = []
+    add = file2.keys() - file1.keys()
+    delete = file1.keys() - file2.keys()
 
+    for key in keys:
+        value1 = file1.get(key)
+        value2 = file2.get(key)
+        if key in add:
+            result.append(added(key, value2))
+        elif key in delete:
+            result.append(deleted(key, value1))
         elif isinstance(file1[key], dict) and isinstance(file2[key], dict):
-            result[key] = {
-                "type": 'nested',
-                "value": create_diff(file1[key], file2[key]),
-            }
-        elif file1[key] != file2[key]:
-            result[key] = {
-                "type": 'changed',
-                "old_value": file1[key],
-                "new_value": file2[key]
-            }
+            result.append(nested(key, value1, value2))
+        elif value1 != value2:
+            result.append(changed(key, value1, value2))
         else:
-            result[key] = {'type': 'unchanged', 'value': file1[key]}
-    return result
+            result.append(unchanged(key, value1))
+
+    sorted_diff = sorted(result, key=lambda x: x['name'])
+    return sorted_diff
+
+def build_root(file1, file2):
+    return {
+        'name': 'main',
+        'type': 'root',
+        'children': create_diff(file1, file2)
+    }

@@ -12,8 +12,8 @@ from gendiff.cli import invitation
 def main():
     #first_file, second_file, format = invitation()
     #print(gendiff(first_file, second_file, format))
-    print(gendiff('/home/alex/Git/python-project-50/tests/fixtures/file1.yml',
-          '/home/alex/Git/python-project-50/tests/fixtures/file2.yml'))
+    print(gendiff('/home/alex/Git/python-project-50/tests/fixtures/file1.json',
+          '/home/alex/Git/python-project-50/tests/fixtures/file2.json'))
 
 
 if __name__ == '__main__':
